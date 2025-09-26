@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,5 +17,13 @@ func main() {
 		})
 	})
 
-	router.Run()
+	port := os.Getenv("SERVER_PORT")
+
+	if port == "" {
+		port = "8081"
+	}
+
+	addr := fmt.Sprintf(":%s", port)
+
+	router.Run(addr)
 }
