@@ -49,7 +49,7 @@ func main() {
 	userService := services.NewUserService(userRepo)
 	toolkitService := services.NewToolkitService(toolkitRepo)
 	categoryService := services.NewCategoryService(categoryRepo)
-	loanService := services.NewLoanService(loanRepo)
+	loanService := services.NewLoanService(loanRepo, toolkitRepo)
 
 	// init handler
 	userHandler := handlers.NewUserHandler(userService)

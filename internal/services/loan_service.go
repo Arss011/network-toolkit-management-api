@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"time"
 
 	"toolkit-management/internal/models"
@@ -16,14 +17,26 @@ type LoanService interface {
 }
 
 type loanService struct {
-	repo repositories.LoanRepository
+	repo        repositories.LoanRepository
+	toolkitRepo repositories.ToolkitRepository
 }
 
-func NewLoanService(repo repositories.LoanRepository) LoanService {
-	return &loanService{repo: repo}
+func NewLoanService(repo repositories.LoanRepository, toolkitRepo repositories.ToolkitRepository) LoanService {
+	return &loanService{repo: repo, toolkitRepo: toolkitRepo}
 }
 
 func (s *loanService) Create(req *models.LoanCreateRequest) (*models.Loan, error) {
+	// Check toolkit availability
+	toolkit, err := s.toolkitRepo.GetByID(req.ToolkitID)
+	if err != nil {
+		return nil, errors.New("toolkit not found")
+	}
+
+	if toolkit.Available < req.Quantity {
+		return nil, errors.New("insufficient toolkit quantity available")
+	}
+
+	// Create loan
 	loan := &models.Loan{
 		UserID:           req.UserID,
 		ToolkitID:        req.ToolkitID,
@@ -37,7 +50,25 @@ func (s *loanService) Create(req *models.LoanCreateRequest) (*models.Loan, error
 		ConditionChecked: req.ConditionChecked,
 	}
 
-	return s.repo.Create(loan)
+	// Create loan
+	createdLoan, err := s.repo.Create(loan)
+	if err != nil {
+		return nil, err
+	}
+
+	// Update toolkit availability
+	toolkit.Available -= req.Quantity
+	if toolkit.Available == 0 {
+		toolkit.Status = "borrowed"
+	}
+	_, err = s.toolkitRepo.Update(toolkit)
+	if err != nil {
+		//delete loan if toolkit update fails
+		_ = s.repo.Delete(createdLoan.ID)
+		return nil, errors.New("failed to update toolkit availability")
+	}
+
+	return createdLoan, nil
 }
 
 func (s *loanService) GetByID(id int) (*models.Loan, error) {
@@ -53,6 +84,15 @@ func (s *loanService) Update(id int, req *models.LoanUpdateRequest) (*models.Loa
 	if err != nil {
 		return nil, err
 	}
+
+	toolkit, err := s.toolkitRepo.GetByID(loan.ToolkitID)
+	if err != nil {
+		return nil, errors.New("toolkit not found")
+	}
+
+	// Handle status changes and qty updates
+	oldStatus := loan.Status
+	oldQuantity := loan.Quantity
 
 	if req.UserID != 0 {
 		loan.UserID = req.UserID
@@ -91,6 +131,44 @@ func (s *loanService) Update(id int, req *models.LoanUpdateRequest) (*models.Loa
 		loan.ConditionReturn = req.ConditionReturn
 	}
 
+	// Handle qty and availability updates
+	if oldStatus != "returned" && loan.Status == "returned" {
+		// Item is being returned
+		toolkit.Available += loan.Quantity
+		if toolkit.Available == toolkit.Quantity {
+			toolkit.Status = "available"
+		} else if toolkit.Available > 0 {
+			toolkit.Status = "available"
+		}
+	} else if oldStatus == "returned" && loan.Status != "returned" {
+		if toolkit.Available < loan.Quantity {
+			return nil, errors.New("insufficient toolkit quantity available")
+		}
+		toolkit.Available -= loan.Quantity
+		if toolkit.Available == 0 {
+			toolkit.Status = "borrowed"
+		}
+	} else if oldQuantity != loan.Quantity && oldStatus != "returned" {
+		// update qty if borowed
+		quantityDiff := loan.Quantity - oldQuantity
+		if quantityDiff > 0 && toolkit.Available < quantityDiff {
+			return nil, errors.New("insufficient toolkit quantity available")
+		}
+		toolkit.Available -= quantityDiff
+		if toolkit.Available == 0 {
+			toolkit.Status = "borrowed"
+		} else if toolkit.Available > 0 {
+			toolkit.Status = "available"
+		}
+	}
+
+	// Update toolkit
+	_, err = s.toolkitRepo.Update(toolkit)
+	if err != nil {
+		return nil, errors.New("failed to update toolkit availability")
+	}
+
+	// Update loan
 	return s.repo.Update(loan)
 }
 
