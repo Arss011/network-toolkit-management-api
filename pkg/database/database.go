@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"toolkit-management/config"
+	"toolkit-management/internal/models"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -18,11 +19,24 @@ func InitDB(cfg *config.Config) *gorm.DB {
 		log.Fatal("Failed to connect to database:", err)
 	}
 
-	err = db.AutoMigrate()
+	// Auto migrate the schemas
+	err = db.AutoMigrate(
+		&models.User{},
+		&models.Toolkit{},
+		&models.Loan{},
+		&models.Category{},
+	)
 	if err != nil {
 		log.Fatal("Failed to migrate database:", err)
 	}
 
-	log.Println("✅ Database connected, migrated successfully")
+	// Seed default admin user
+	SeedAdminUser(db)
+
+	if cfg.IsDevelopment() {
+		SeedTestData(db)
+	}
+
+	log.Println("Database connected, migrated, and seeded successfully")
 	return db
 }

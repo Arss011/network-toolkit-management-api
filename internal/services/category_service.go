@@ -26,9 +26,6 @@ func (s *categoryService) Create(req *models.CategoryCreateRequest) (*models.Cat
 	category := &models.Category{
 		Name:        req.Name,
 		Description: req.Description,
-		Color:       req.Color,
-		Icon:        req.Icon,
-		ParentID:    req.ParentID,
 		SortOrder:   req.SortOrder,
 		IsActive:    true,
 	}
@@ -55,15 +52,6 @@ func (s *categoryService) Update(id int, req *models.CategoryUpdateRequest) (*mo
 	}
 	if req.Description != "" {
 		category.Description = req.Description
-	}
-	if req.Color != "" {
-		category.Color = req.Color
-	}
-	if req.Icon != "" {
-		category.Icon = req.Icon
-	}
-	if req.ParentID != nil {
-		category.ParentID = req.ParentID
 	}
 	if req.SortOrder != 0 {
 		category.SortOrder = req.SortOrder

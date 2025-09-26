@@ -49,10 +49,6 @@ func (r *categoryRepository) GetAll(filter *models.CategoryFilterRequest) ([]mod
 			"%"+filter.SearchTerm+"%", "%"+filter.SearchTerm+"%")
 	}
 
-	if filter.ParentID != nil {
-		query = query.Where("parent_id = ?", *filter.ParentID)
-	}
-
 	if filter.IsActive != nil {
 		query = query.Where("is_active = ?", *filter.IsActive)
 	}
@@ -81,21 +77,10 @@ func (r *categoryRepository) Delete(id int) error {
 func (r *categoryRepository) GetTree() ([]models.Category, error) {
 	var categories []models.Category
 
-	result := r.db.Where("parent_id IS NULL").
-		Order("sort_order ASC, name ASC").
-		Find(&categories)
+	result := r.db.Order("sort_order ASC, name ASC").Find(&categories)
 
 	if result.Error != nil {
 		return nil, result.Error
-	}
-
-	// Load children for each category
-	for i := range categories {
-		var children []models.Category
-		r.db.Where("parent_id = ?", categories[i].ID).
-			Order("sort_order ASC, name ASC").
-			Find(&children)
-		categories[i].Children = children
 	}
 
 	return categories, nil
