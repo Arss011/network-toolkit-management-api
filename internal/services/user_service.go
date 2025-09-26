@@ -23,7 +23,7 @@ type userService struct {
 
 func NewUserService(repo UserRepository) UserService {
 	authConfig := auth.AuthConfig{
-		SecretKey:     "your-secret-key-change-in-production",
+		SecretKey:     "secrect-key-rahasia",
 		TokenDuration: 24 * time.Hour,
 	}
 	return &userService{
