@@ -26,6 +26,13 @@ func main() {
 	// Init Database
 	db := database.InitDB(cfg)
 
+	//seed user admin
+	database.SeedAdminUser(db)
+
+	if cfg.Environment == "development" {
+		database.SeedTestData(db)
+	}
+
 	// Init Auth Service
 	authConfig := auth.AuthConfig{
 		SecretKey:     "secrect-key-rahasia",
