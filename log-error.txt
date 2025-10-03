@@ -1,0 +1,163 @@
+PS C:\code\network-toolkit-management\network-toolkit-management-api> docker-compose up api
+time="2025-10-03T11:14:20+07:00" level=warning msg="C:\\code\\network-toolkit-management\\network-toolkit-management-api\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+[+] Running 2/2
+ ✔ Container toolkit-db   Running                                                                                                                  0.0s 
+ ✔ Container toolkit-api  Created                                                                                                                  0.1s 
+Attaching to toolkit-api
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  |
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | main.main()
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api exited with code 0
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66
+toolkit-api exited with code 2                                                                                                                          
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | main.main()
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | main.main()
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:44 /app/config/config.go:66
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | main.main()
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66
+toolkit-api exited with code 2                                                                                                                          
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  | 
+toolkit-api exited with code 2                                                                                                                          
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66
+toolkit-api  | main.main()
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | 
+toolkit-api  | main.main()
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  | 
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66
+toolkit-api  | main.main()
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:44 /app/config/config.go:66
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | 
+toolkit-api  | main.main()
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  | 
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | 2025/10/03 04:14:44 /app/config/config.go:66
+toolkit-api  | main.main()
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  |                                                                                                                                          
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:45 /app/config/config.go:66
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api exited with code 2                                                                                                                          
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66
+toolkit-api  | main.main()
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | toolkit-management/config.LoadConfig()                                                                                                   
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  |                                                                                                                                          
+toolkit-api  | 2025/10/03 04:14:45 /app/config/config.go:66
+toolkit-api  | main.main()
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta                                                          
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta                                                                     
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | 
+toolkit-api  | main.main()
+toolkit-api  | goroutine 1 [running]:                                                                                                                   
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | toolkit-management/config.LoadConfig()                                                                                                   
+toolkit-api  | 
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | 2025/10/03 04:14:43 /app/config/config.go:66                                                                                             
+toolkit-api  | main.main()
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta                                                          
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  |                                                                                                                                          
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  |  /app/config/config.go:41 +0x30b                                                                                                         
+toolkit-api  | main.main()
+toolkit-api  |  /app/main.go:19 +0x25
+toolkit-api  |                                                                                                                                          
+toolkit-api  | 2025/10/03 04:14:44 /app/config/config.go:66
+toolkit-api  | [error] failed to initialize database, got error unknown time zone Asia/Jakarta
+toolkit-api  | panic: Failed to initialize database: unknown time zone Asia/Jakarta
+toolkit-api  | 
+toolkit-api  | goroutine 1 [running]:
+toolkit-api  | toolkit-management/config.LoadConfig()
+toolkit-api  |  /app/config/config.go:41 +0x30b
+toolkit-api  | main.main()
+toolkit-api  |  /app/main.go:19 +0x25                                                                                                                   
+toolkit-api  | 
+toolkit-api  | 2025/10/03 04:14:45 /app/config/config.go:66    

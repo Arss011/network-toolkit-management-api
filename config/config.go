@@ -45,7 +45,7 @@ func LoadConfig() *Config {
 }
 
 func (c *Config) GetDBConnectionString() string {
-	return fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Asia/Jakarta",
+	return fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=UTC",
 		c.DBHost, c.DBUser, c.DBPassword, c.DBName, c.DBPort)
 }
 
