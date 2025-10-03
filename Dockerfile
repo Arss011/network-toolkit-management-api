@@ -22,8 +22,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
 # Use Alpine as final image
 FROM alpine:latest
 
-# Install ca-certificates for HTTPS requests, timezone data, and wget
-RUN apk --no-cache add ca-certificates tzdata wget
+# Install ca-certificates for HTTPS requests, timezone data, and curl
+RUN apk --no-cache add ca-certificates tzdata curl
 
 # Create a non-root user
 RUN addgroup -g 1001 -S appgroup && \

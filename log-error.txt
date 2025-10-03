@@ -1,317 +1,307 @@
-kandidat@kandidat:~/network-toolkit-management/network-toolkit-management-api$ docker-compose ps
-NAME          IMAGE                                COMMAND                  SERVICE   CREATED          STATUS                     PORTS
-toolkit-api   network-toolkit-management-api-api   "./main"                 api       2 minutes ago    Up 2 minutes (unhealthy)   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp
-toolkit-db    postgres:15-alpine                   "docker-entrypoint.s…"   db        28 minutes ago   Up 28 minutes (healthy)    0.0.0.0:5433->5432/tcp, :::5433->5432/tcp
-kandidat@kandidat:~/network-toolkit-management/network-toolkit-management-api$ docker-compose ps
-NAME          IMAGE                                COMMAND                  SERVICE   CREATED          STATUS                     PORTS
-toolkit-api   network-toolkit-management-api-api   "./main"                 api       2 minutes ago    Up 2 minutes (unhealthy)   0.0.0.0:8080->8080/tcp, :::8080->8080/tcp
-toolkit-db    postgres:15-alpine                   "docker-entrypoint.s…"   db        28 minutes ago   Up 28 minutes (healthy)    0.0.0.0:5433->5432/tcp, :::5433->5432/tcp
-kandidat@kandidat:~/network-toolkit-management/network-toolkit-management-api$ docker-compose logs api
+PS C:\code\network-toolkit-management\network-toolkit-management-api> docker compose logs api
+time="2025-10-03T18:21:55+07:00" level=warning msg="C:\\code\\network-toolkit-management\\network-toolkit-management-api\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+toolkit-api  | 
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [25.673ms] [rows:1] SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND table_type = 'BASE TABLE'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [18.478ms] [rows:1] SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND table_type = 'BASE TABLE'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.171ms] [rows:1] SELECT CURRENT_DATABASE()
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.796ms] [rows:1] SELECT CURRENT_DATABASE()
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [35.994ms] [rows:-] SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'toolkit_db' AND table_schema = CURRENT_SCHEMA() AND table_name = 'users'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [32.117ms] [rows:-] SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'toolkit_db' AND table_schema = CURRENT_SCHEMA() AND table_name = 'users'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [2.314ms] [rows:-] SELECT * FROM "users" LIMIT 5
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.813ms] [rows:-] SELECT * FROM "users" LIMIT 5
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [25.610ms] [rows:-] SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'users' AND constraint_type = 'UNIQUE'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [26.109ms] [rows:-] SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'users' AND constraint_type = 'UNIQUE'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [14.888ms] [rows:-] SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'users'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [21.285ms] [rows:-] SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'users'
-toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.787ms] [rows:-] SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.634ms] [rows:-] SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type 
 toolkit-api  |          FROM pg_attribute a JOIN pg_class b ON a.attrelid = b.oid AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA())
 toolkit-api  |          WHERE a.attnum > 0 -- hide internal columns
 toolkit-api  |          AND NOT a.attisdropped -- hide deleted columns
 toolkit-api  |          AND b.relname = 'users'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [7.073ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [5.994ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [5.363ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'username') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [4.094ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'username') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [5.463ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'email') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [3.859ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'email') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [5.434ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'full_name') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [3.987ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'full_name') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [5.574ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'password') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [4.406ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'password') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [4.089ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'role') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [5.405ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'role') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.852ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'department') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.098ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'department') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.829ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'phone_number') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.977ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'phone_number') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.648ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'is_active') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.929ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'is_active') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.650ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'last_login') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.992ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'last_login') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.840ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.274ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.827ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.998ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.791ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.912ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'users' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'users' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [5.289ms] [rows:1] SELECT count(*) FROM pg_indexes WHERE tablename = 'users' AND indexname = 'idx_users_deleted_at' AND schemaname = CURRENT_SCHEMA()
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [5.092ms] [rows:1] SELECT count(*) FROM pg_indexes WHERE tablename = 'users' AND indexname = 'idx_users_deleted_at' AND schemaname = CURRENT_SCHEMA()
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.528ms] [rows:1] SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND table_type = 'BASE TABLE'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.887ms] [rows:1] SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND table_type = 'BASE TABLE'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.468ms] [rows:1] SELECT CURRENT_DATABASE()
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.297ms] [rows:1] SELECT CURRENT_DATABASE()
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [9.133ms] [rows:-] SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'toolkit_db' AND table_schema = CURRENT_SCHEMA() AND table_name = 'categories'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [13.665ms] [rows:-] SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'toolkit_db' AND table_schema = CURRENT_SCHEMA() AND table_name = 'categories'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.455ms] [rows:-] SELECT * FROM "categories" LIMIT 5
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.184ms] [rows:-] SELECT * FROM "categories" LIMIT 5
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [13.048ms] [rows:-] SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'categories' AND constraint_type = 'UNIQUE'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [20.517ms] [rows:-] SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'categories' AND constraint_type = 'UNIQUE'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [14.556ms] [rows:-] SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'categories'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [18.852ms] [rows:-] SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'categories'
-toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.086ms] [rows:-] SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.564ms] [rows:-] SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type 
 toolkit-api  |          FROM pg_attribute a JOIN pg_class b ON a.attrelid = b.oid AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA())
 toolkit-api  |          WHERE a.attnum > 0 -- hide internal columns
 toolkit-api  |          AND NOT a.attisdropped -- hide deleted columns
 toolkit-api  |          AND b.relname = 'categories'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.017ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.824ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.894ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'name') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.910ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'name') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.924ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'description') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.431ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'description') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.032ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'sort_order') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.249ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'sort_order') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.918ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'is_active') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.204ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'is_active') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.966ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.088ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.903ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.911ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.896ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.920ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'categories' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'categories' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [2.008ms] [rows:1] SELECT count(*) FROM pg_indexes WHERE tablename = 'categories' AND indexname = 'idx_categories_deleted_at' AND schemaname = CURRENT_SCHEMA()
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.827ms] [rows:1] SELECT count(*) FROM pg_indexes WHERE tablename = 'categories' AND indexname = 'idx_categories_deleted_at' AND schemaname = CURRENT_SCHEMA()
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.746ms] [rows:1] SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND table_type = 'BASE TABLE'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.769ms] [rows:1] SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND table_type = 'BASE TABLE'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.267ms] [rows:1] SELECT CURRENT_DATABASE()
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.358ms] [rows:1] SELECT CURRENT_DATABASE()
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [13.832ms] [rows:-] SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'toolkit_db' AND table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [12.973ms] [rows:-] SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'toolkit_db' AND table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.551ms] [rows:-] SELECT * FROM "toolkits" LIMIT 5
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [2.764ms] [rows:-] SELECT * FROM "toolkits" LIMIT 5
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [20.669ms] [rows:-] SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'toolkits' AND constraint_type = 'UNIQUE'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [14.075ms] [rows:-] SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'toolkits' AND constraint_type = 'UNIQUE'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [20.845ms] [rows:-] SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'toolkits'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [30.001ms] [rows:-] SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'toolkits'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.241ms] [rows:-] SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.589ms] [rows:-] SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type 
 toolkit-api  |          FROM pg_attribute a JOIN pg_class b ON a.attrelid = b.oid AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA())
 toolkit-api  |          WHERE a.attnum > 0 -- hide internal columns
 toolkit-api  |          AND NOT a.attisdropped -- hide deleted columns
 toolkit-api  |          AND b.relname = 'toolkits'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.040ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.298ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.876ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'name') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.122ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'name') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.774ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'sku') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.380ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'sku') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.902ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'description') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.804ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'description') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.927ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'category_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [3.848ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'category_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.960ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'quantity') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.842ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'quantity') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.933ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'available') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.256ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'available') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.913ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'unit') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.333ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'unit') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.906ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'brand') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.946ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'brand') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.969ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'model') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.360ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'model') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.880ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'serial_number') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.741ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'serial_number') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.911ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'purchase_date') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.392ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'purchase_date') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.948ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'purchase_price') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.636ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'purchase_price') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.870ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'condition') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.650ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'condition') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.884ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'status') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.456ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'status') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.897ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'image_url') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.665ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'image_url') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.914ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'notes') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.868ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'notes') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.895ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.475ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.965ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.146ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.947ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.538ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'toolkits' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [4.033ms] [rows:1] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND constraint_name = 'fk_categories_toolkits'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [4.421ms] [rows:1] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'toolkits' AND constraint_name = 'fk_categories_toolkits'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.943ms] [rows:1] SELECT count(*) FROM pg_indexes WHERE tablename = 'toolkits' AND indexname = 'idx_toolkits_deleted_at' AND schemaname = CURRENT_SCHEMA()
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [2.637ms] [rows:1] SELECT count(*) FROM pg_indexes WHERE tablename = 'toolkits' AND indexname = 'idx_toolkits_deleted_at' AND schemaname = CURRENT_SCHEMA()
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.806ms] [rows:1] SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND table_type = 'BASE TABLE'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [3.289ms] [rows:1] SELECT count(*) FROM information_schema.tables WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND table_type = 'BASE TABLE'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.252ms] [rows:1] SELECT CURRENT_DATABASE()
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [0.619ms] [rows:1] SELECT CURRENT_DATABASE()
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [13.620ms] [rows:-] SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'toolkit_db' AND table_schema = CURRENT_SCHEMA() AND table_name = 'loans'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [13.644ms] [rows:-] SELECT c.column_name, c.is_nullable = 'YES', c.udt_name, c.character_maximum_length, c.numeric_precision, c.numeric_precision_radix, c.numeric_scale, c.datetime_precision, 8 * typlen, c.column_default, pd.description, c.identity_increment FROM information_schema.columns AS c JOIN pg_type AS pgt ON c.udt_name = pgt.typname LEFT JOIN pg_catalog.pg_description as pd ON pd.objsubid = c.ordinal_position AND pd.objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = c.table_name AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = c.table_schema)) where table_catalog = 'toolkit_db' AND table_schema = CURRENT_SCHEMA() AND table_name = 'loans'
+toolkit-api  | 
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [2.847ms] [rows:-] SELECT * FROM "loans" LIMIT 5
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.251ms] [rows:-] SELECT * FROM "loans" LIMIT 5
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [22.137ms] [rows:-] SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'loans' AND constraint_type = 'UNIQUE'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [19.548ms] [rows:-] SELECT constraint_name FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'loans' AND constraint_type = 'UNIQUE'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [28.885ms] [rows:-] SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'loans'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [19.060ms] [rows:-] SELECT c.column_name, constraint_name, constraint_type FROM information_schema.table_constraints tc JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema, constraint_catalog, table_name, constraint_name) JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema AND tc.table_name = c.table_name AND ccu.column_name = c.column_name WHERE constraint_type IN ('PRIMARY KEY', 'UNIQUE') AND c.table_catalog = 'toolkit_db' AND c.table_schema = CURRENT_SCHEMA() AND c.table_name = 'loans'
-toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.115ms] [rows:-] SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.398ms] [rows:-] SELECT a.attname as column_name, format_type(a.atttypid, a.atttypmod) AS data_type 
 toolkit-api  |          FROM pg_attribute a JOIN pg_class b ON a.attrelid = b.oid AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA())
 toolkit-api  |          WHERE a.attnum > 0 -- hide internal columns
 toolkit-api  |          AND NOT a.attisdropped -- hide deleted columns
 toolkit-api  |          AND b.relname = 'loans'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.077ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.118ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.990ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'user_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.597ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'user_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.031ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'toolkit_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.212ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'toolkit_id') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.944ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'quantity') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.034ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'quantity') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.016ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'purpose') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.561ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'purpose') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.984ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'borrow_date') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.334ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'borrow_date') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.980ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'due_date') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.073ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'due_date') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.898ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'return_date') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.095ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'return_date') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.965ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'status') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.378ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'status') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.927ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'approved_by') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.521ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'approved_by') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.877ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'notes') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [2.191ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'notes') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.899ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'condition_checked') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.201ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'condition_checked') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.985ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'condition_return') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.781ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'condition_return') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.877ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.608ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'created_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.889ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.056ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'updated_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [0.901ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [1.035ms] [rows:0] SELECT description FROM pg_catalog.pg_description WHERE objsubid = (SELECT ordinal_position FROM information_schema.columns WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND column_name = 'deleted_at') AND objoid = (SELECT oid FROM pg_catalog.pg_class WHERE relname = 'loans' AND relnamespace = (SELECT oid FROM pg_catalog.pg_namespace WHERE nspname = CURRENT_SCHEMA()))
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [3.269ms] [rows:1] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND constraint_name = 'fk_toolkits_loans'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [4.592ms] [rows:1] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND constraint_name = 'fk_toolkits_loans'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [3.313ms] [rows:1] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND constraint_name = 'fk_users_loans'
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [2.977ms] [rows:1] SELECT count(*) FROM INFORMATION_SCHEMA.table_constraints WHERE table_schema = CURRENT_SCHEMA() AND table_name = 'loans' AND constraint_name = 'fk_users_loans'
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/database.go:23
-toolkit-api  | [1.957ms] [rows:1] SELECT count(*) FROM pg_indexes WHERE tablename = 'loans' AND indexname = 'idx_loans_deleted_at' AND schemaname = CURRENT_SCHEMA()
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/database.go:23
+toolkit-api  | [2.095ms] [rows:1] SELECT count(*) FROM pg_indexes WHERE tablename = 'loans' AND indexname = 'idx_loans_deleted_at' AND schemaname = CURRENT_SCHEMA()
+toolkit-api  | 2025/10/03 07:31:40 Admin seed: Skipping, users found in database.
+toolkit-api  | 2025/10/03 07:31:40 Database connected, migrated, and seeded successfully
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/seeder.go:15
-toolkit-api  | [0.699ms] [rows:1] SELECT count(*) FROM "users"
-toolkit-api  | 2025/10/03 06:18:04 Admin seed: Skipping, users found in database.
-toolkit-api  | 2025/10/03 06:18:04 Database connected, migrated, and seeded successfully
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/seeder.go:15
+toolkit-api  | [1.635ms] [rows:1] SELECT count(*) FROM "users"
+toolkit-api  | 2025/10/03 07:31:40 Admin seed: Skipping, users found in database.
+toolkit-api  | 2025/10/03 07:31:40 Starting server on port 8080...
 toolkit-api  |
-toolkit-api  | 2025/10/03 06:18:04 /app/pkg/database/seeder.go:15
-toolkit-api  | [0.313ms] [rows:1] SELECT count(*) FROM "users"
-toolkit-api  | 2025/10/03 06:18:04 Admin seed: Skipping, users found in database.
-toolkit-api  | 2025/10/03 06:18:04 Starting server on port 8080...
-toolkit-api  | [GIN] 2025/10/03 - 06:18:34 | 401 |     332.962µs |             ::1 | GET      "/api/auth/me"
-toolkit-api  | [GIN] 2025/10/03 - 06:19:04 | 401 |      54.897µs |             ::1 | GET      "/api/auth/me"
-toolkit-api  | [GIN] 2025/10/03 - 06:19:34 | 401 |      57.669µs |             ::1 | GET      "/api/auth/me"
-toolkit-api  | [GIN] 2025/10/03 - 06:20:04 | 401 |     101.003µs |             ::1 | GET      "/api/auth/me"
-toolkit-api  | [GIN] 2025/10/03 - 06:20:35 | 401 |      54.423µs |             ::1 | GET      "/api/auth/me"
-kandidat@kandidat:~/network-toolkit-management/network-toolkit-management-api$
+toolkit-api  | 2025/10/03 07:31:40 /app/pkg/database/seeder.go:15
+toolkit-api  | [0.509ms] [rows:1] SELECT count(*) FROM "users"
+toolkit-api  | [GIN] 2025/10/03 - 07:31:45 | 200 |     442.691µs |      172.20.0.1 | GET      "/api/health"
+
+PS C:\code\network-toolkit-management\network-toolkit-management-api>
