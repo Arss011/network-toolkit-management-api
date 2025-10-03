@@ -73,6 +73,12 @@ func main() {
 	api := router.Group("/api")
 	{
 		// Public routes
+		api.GET("/health", func(c *gin.Context) {
+			c.JSON(200, gin.H{
+				"status": "ok",
+				"message": "Service is healthy",
+			})
+		})
 		api.POST("/auth/login", userHandler.Login)
 
 		// Protected routes
