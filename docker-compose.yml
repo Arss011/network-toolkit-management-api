@@ -37,7 +37,7 @@ services:
       SERVER_PORT: 8080
       TZ: UTC
     ports:
-      - "8080:8080"
+      - "8011:8080"
     depends_on:
       db:
         condition: service_healthy
